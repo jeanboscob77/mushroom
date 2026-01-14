@@ -71,7 +71,7 @@ export default function Navbar() {
               <li key={link.id} className="py-2">
                 <button
                   onClick={() => handleScroll(link.id)}
-                  className="block w-full text-left hover:text-green-300 transition"
+                  className="block w-full text-left hover:text-green-300 transition cursor-pointer"
                 >
                   {link.name}
                 </button>
