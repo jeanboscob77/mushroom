@@ -1,3 +1,6 @@
+"use client";
+import { motion } from "framer-motion";
+
 export default function Contact() {
   return (
     <section id="contact" className="py-20">
@@ -7,12 +10,23 @@ export default function Contact() {
         Location: Rwanda
       </p>
 
-      <a
-        href="https://wa.me/2507XXXXXXXX"
-        className="fixed bottom-6 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg"
+      <motion.a
+        href="https://wa.me/250783214787"
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        className="
+    fixed bottom-6 right-6 
+    bg-green-600 text-white 
+    p-2 md:p-3 rounded-full 
+    shadow-lg 
+    flex items-center justify-center
+    z-50
+  "
       >
-        💬
-      </a>
+        <span className="text-2xl md:text-3xl">💬</span>
+      </motion.a>
     </section>
   );
 }

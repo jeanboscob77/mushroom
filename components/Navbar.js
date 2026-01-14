@@ -5,32 +5,50 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const NAV_HEIGHT = 64;
 
   const links = [
-    { name: "About", href: "#about" },
-    { name: "Process", href: "#process" },
-    { name: "Market", href: "#market" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", id: "home" },
+    { name: "About", id: "about" },
+    { name: "Process", id: "process" },
+    { name: "Market", id: "market" },
+    { name: "Contact", id: "contact" },
   ];
+
+  const handleScroll = (id) => {
+    // Close the menu first
+    setOpen(false);
+
+    // Wait for animation to finish (300ms)
+    setTimeout(() => {
+      const section = document.getElementById(id);
+      if (section) {
+        const top = section.offsetTop - NAV_HEIGHT;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    }, 300); // match motion exit duration
+  };
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-green-900/95 backdrop-blur shadow-lg">
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-        {/* Logo */}
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4 h-16">
         <h1 className="font-bold text-white text-xl">MushroomFarm</h1>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-6 font-medium text-white">
           {links.map((link) => (
-            <li key={link.name}>
-              <a href={link.href} className="hover:text-green-300 transition">
+            <li key={link.id}>
+              <button
+                onClick={() => handleScroll(link.id)}
+                className="hover:text-green-300 transition cursor-pointer"
+              >
                 {link.name}
-              </a>
+              </button>
             </li>
           ))}
         </ul>
 
-        {/* Mobile Button */}
+        {/* Mobile Hamburger */}
         <button
           className="md:hidden text-2xl text-white"
           onClick={() => setOpen(!open)}
@@ -50,14 +68,13 @@ export default function Navbar() {
             className="md:hidden bg-green-900 text-white px-6 pb-4"
           >
             {links.map((link) => (
-              <li key={link.name} className="py-2">
-                <a
-                  href={link.href}
-                  className="block hover:text-green-300 transition"
-                  onClick={() => setOpen(false)}
+              <li key={link.id} className="py-2">
+                <button
+                  onClick={() => handleScroll(link.id)}
+                  className="block w-full text-left hover:text-green-300 transition"
                 >
                   {link.name}
-                </a>
+                </button>
               </li>
             ))}
           </motion.ul>
